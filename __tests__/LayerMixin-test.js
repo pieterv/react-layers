@@ -22,7 +22,7 @@ describe('LayerMixin', function() {
 		});
 	});
 
-	it('will mount to containerdefault (document.body)', function() {
+	it('will mount to container default (document.body)', function() {
 		var React = require('react');
 		var TestUtils = require('react/lib/ReactTestUtils');
 
