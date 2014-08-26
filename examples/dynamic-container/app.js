@@ -24,7 +24,7 @@ var NestedLayer = React.createClass({
 
 		return (
 			<div style={layerStyle}>
-				<h1>Hi there!</h1>
+				<h1>Dynamic container</h1>
 
 				<button onClick={this.handleShowLayer}>Create layer!</button>
 
