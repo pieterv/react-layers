@@ -1,22 +1,37 @@
 {
-  "name": "react-overlay",
-  "version": "0.0.0",
-  "description": "",
+  "name": "react-layers",
+  "version": "0.1.0",
+  "description": "A library for layering components in React",
+  "keywords": [
+    "react",
+    "react-component",
+    "layers",
+    "layering",
+    "overlay"
+  ],
   "main": "index.js",
   "scripts": {
     "test": "jest",
     "build-examples": "webpack --devtool inline-source-map",
     "watch-examples": "webpack --devtool inline-source-map --watch"
   },
-  "author": "",
-  "license": "MIT",
-  "dependencies": {
-    "react": ">=0.11.0",
-    "react-tools": "*"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pieterv/react-layers.git"
   },
+  "homepage": "https://github.com/pieterv/react-layers",
+  "bugs": "https://github.com/pieterv/react-layers/issues",
+  "author": "Pieter Vanderwerff",
+  "license": "MIT",
   "devDependencies": {
     "jest-cli": "^0.1.18",
-    "jsx-loader": "^0.11.0"
+    "jsx-loader": "^0.11.0",
+    "react-tools": "^0.11.1",
+    "webpack": "^1.3.7",
+    "react": ">=0.11.0"
+  },
+  "peerDependencies": {
+    "react": ">=0.11.0"
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/preprocessor.js",
