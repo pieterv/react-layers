@@ -25,6 +25,7 @@ Modules
 
 - LayerMixin
 - Layer
+- Portal
 
 Check out the `examples` directory to see how these modules can be used.
 
