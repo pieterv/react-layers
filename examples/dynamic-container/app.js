@@ -28,9 +28,7 @@ var NestedLayer = React.createClass({
 
 				<button onClick={this.handleShowLayer}>Create layer!</button>
 
-				<ReactLayer container={this}>
-					{this.state.hasLayer ? <NestedLayer /> : null}
-				</ReactLayer>
+				<ReactLayer container={this} layer={this.state.hasLayer ? <NestedLayer /> : null} />
 			</div>
 			);
 	},
