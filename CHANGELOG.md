@@ -1,3 +1,7 @@
+## next
+
+- Converted whitespace to spaces!
+
 ## 0.2.0
 
 - Created `Portal` component which has the API of the previous `Layer` component.

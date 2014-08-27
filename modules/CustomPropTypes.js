@@ -17,17 +17,17 @@ var ANONYMOUS = '<<anonymous>>';
 exports.mountable = createMountableChecker();
 
 function createMountableChecker() {
-	function validate(props, propName, componentName) {
-		if (typeof props[propName] !== 'object' ||
-			typeof props[propName].getDOMNode !== 'function' && props[propName].nodeType !== 1) {
-			return new Error(
-				'Invalid prop `' + propName + '` supplied to ' +
-					'`' + componentName + '`, expected a DOM element or an object that has a `getDOMNode` method'
-			);
-		}
-	}
+  function validate(props, propName, componentName) {
+    if (typeof props[propName] !== 'object' ||
+      typeof props[propName].getDOMNode !== 'function' && props[propName].nodeType !== 1) {
+      return new Error(
+        'Invalid prop `' + propName + '` supplied to ' +
+          '`' + componentName + '`, expected a DOM element or an object that has a `getDOMNode` method'
+      );
+    }
+  }
 
-	return createChainableTypeChecker(validate);
+  return createChainableTypeChecker(validate);
 }
 
 /**
@@ -43,7 +43,7 @@ function createChainableTypeChecker(validate) {
       if (isRequired) {
         return new Error(
           'Required prop `' + propName + '` was not specified in ' +
-           '`' + componentName + '`.'
+            '`' + componentName + '`.'
         );
       }
     } else {
