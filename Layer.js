@@ -12,7 +12,7 @@ var Layer = React.createClass({
     layer: React.PropTypes.oneOfType([
       React.PropTypes.oneOf([null]),
       React.PropTypes.component
-    ])
+    ]).isRequired
   },
 
   render: function() {

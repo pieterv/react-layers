@@ -1,5 +1,6 @@
 ## next
 
+- Make `Layer` layer prop required.
 - Converted whitespace to spaces!
 
 ## 0.2.0
