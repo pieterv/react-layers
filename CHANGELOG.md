@@ -1,4 +1,4 @@
-## next
+## 0.3.0
 
 - Added `ContainerMixin` and `Container` for mounting into react components.
 - Deprecate ability to pass react components as containers, use new `ContainerMixin` instead.
