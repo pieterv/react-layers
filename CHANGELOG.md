@@ -1,6 +1,7 @@
 ## next
 
-- Make `Layer` layer prop required.
+- Added `ContainerMixin` and `Container` for mounting into react components.
+- Deprecate ability to pass react components as containers, use new `ContainerMixin` instead.
 - Converted whitespace to spaces!
 
 ## 0.2.0

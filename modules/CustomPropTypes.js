@@ -1,5 +1,7 @@
 "use strict";
 
+var Container = require('./Container');
+
 var ANONYMOUS = '<<anonymous>>';
 
 /**
@@ -18,13 +20,29 @@ exports.mountable = createMountableChecker();
 
 function createMountableChecker() {
   function validate(props, propName, componentName) {
-    if (typeof props[propName] !== 'object' ||
-      typeof props[propName].getDOMNode !== 'function' && props[propName].nodeType !== 1) {
-      return new Error(
-        'Invalid prop `' + propName + '` supplied to ' +
-          '`' + componentName + '`, expected a DOM element or an object that has a `getDOMNode` method'
-      );
+    if (typeof props[propName] === 'object') {
+      if (props[propName].nodeType === 1) {
+        return; // Valid
+      }
+
+      if (props[propName] instanceof Container) {
+        return; // Valid
+      }
+
+      if (typeof props[propName].getDOMNode === 'function') {
+        // Will still actually work but is deprecated
+        return new Error(
+          'Prop `' + propName + '` supplied to `' + componentName + '` was passed a React component, ' +
+            'this is a deprecated behaviour and will be removed. Please use the `ContainerMixin` or ' +
+            '`Container` component and pass `this.container` instead.'
+        );
+      }
     }
+
+    return new Error(
+      'Invalid prop `' + propName + '` supplied to `' + componentName + '`, ' +
+        'expected a HTMLElement or Container instance.'
+    );
   }
 
   return createChainableTypeChecker(validate);

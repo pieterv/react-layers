@@ -1,6 +1,8 @@
 /** @jsx React.DOM */
 
 jest.dontMock('../LayerMixin');
+jest.dontMock('../modules/Container');
+jest.dontMock('../modules/ReactLayer');
 
 describe('LayerMixin', function() {
   var LayerHolder;
@@ -25,17 +27,13 @@ describe('LayerMixin', function() {
   it('will mount to container default (document.body)', function() {
     var React = require('react');
     var TestUtils = require('react/lib/ReactTestUtils');
+    var documentBodyContainer = require('../modules/documentBodyContainer');
 
     var container = document.body;
     var layerHolder = TestUtils.renderIntoDocument(
       <LayerHolder layer={<div id="test1" />} />
     );
-    var layerElement = container.querySelector('#test1');
-    expect(layerElement).not.toBeNull();
-    expect(layerElement.parentNode.parentNode).toBe(container);
-
-    // Clean up after using `document.body`
-    React.unmountComponentAtNode(layerHolder.getDOMNode().parentNode);
+    expect(documentBodyContainer.addLayer).toBeCalled();
   });
 
   it('will mount to container DOM element', function() {
@@ -51,7 +49,7 @@ describe('LayerMixin', function() {
     expect(layerElement.parentNode.parentNode).toBe(container);
   });
 
-  it('will mount to container react component', function() {
+  it('will mount to react component', function() {
     var React = require('react');
     var TestUtils = require('react/lib/ReactTestUtils');
 
@@ -73,6 +71,19 @@ describe('LayerMixin', function() {
     var layerElement = container.querySelector('#test1');
     expect(layerElement).not.toBeNull();
     expect(layerElement.parentNode.parentNode).toBe(container);
+  });
+
+  it('will mount to Container', function() {
+    var React = require('react');
+    var TestUtils = require('react/lib/ReactTestUtils');
+    var Container = require('../modules/Container');
+
+    var container = new Container();
+    container.addLayer = jest.genMockFn();
+    var layerHolder = TestUtils.renderIntoDocument(
+      <LayerHolder container={container} layer={<div id="test1" />} />
+    );
+    expect(container.addLayer).toBeCalled();
   });
 
   it('will not mount to container with layer null', function() {

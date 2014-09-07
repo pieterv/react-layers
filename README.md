@@ -26,8 +26,10 @@ Modules
 - LayerMixin
 - Layer
 - Portal
+- ContainerMixin
+- Container
 
-Check out the `examples` directory to see how these modules can be used.
+Check out the [`examples`](https://github.com/pieterv/react-layers/tree/master/examples) directory to see how these modules can be used.
 
 Thanks
 -------------

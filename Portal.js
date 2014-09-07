@@ -14,10 +14,6 @@ var Portal = React.createClass({
   },
 
   renderLayer: function() {
-    if (this.props.children == null) {
-      return null;
-    }
-
     // Extract out props used by this component.
     // TODO: swap out to use ES6-7 spread operator when possible
     // @see https://gist.github.com/sebmarkbage/a6e220b7097eb3c79ab7

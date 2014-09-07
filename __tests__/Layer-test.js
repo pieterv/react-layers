@@ -2,6 +2,8 @@
 
 jest.dontMock('../Layer');
 jest.dontMock('../LayerMixin');
+jest.dontMock('../modules/Container');
+jest.dontMock('../modules/ReactLayer');
 
 describe('Layer', function() {
   it('will render `props.layer` into container', function() {

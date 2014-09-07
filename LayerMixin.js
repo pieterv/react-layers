@@ -2,6 +2,23 @@
 
 var React = require('react');
 var CustomPropTypes = require('./modules/CustomPropTypes');
+var Container = require('./modules/Container');
+var documentBodyContainer = require('./modules/documentBodyContainer');
+var ReactLayer = require('./modules/ReactLayer');
+
+function createContainer(container) {
+  if (container.nodeType === 1) {
+    return new Container(container);
+  }
+
+  // Handle extracting node from a React component
+  // NOTE: this is deprecated behaviour and will be removed in 1.0
+  if (container.getDOMNode) {
+    return new Container(container.getDOMNode());
+  }
+
+  return container;
+}
 
 var LayerMixin = {
   propTypes: {
@@ -10,16 +27,7 @@ var LayerMixin = {
 
   getDefaultProps: function() {
     return {
-      container: {
-        // Provide `getDOMNode` fn mocking a React component API. The `document.body`
-        // reference needs to be contained within this function so that it is not accessed
-        // in environments where it would not be defined, e.g. nodejs. Equally this is needed
-        // before the body is defined where `document.body === null`, this ensures
-        // `document.body` is only accessed after componentDidMount.
-        getDOMNode: function getDOMNode() {
-          return document.body;
-        }
-      }
+      container: documentBodyContainer
     };
   },
 
@@ -34,12 +42,14 @@ var LayerMixin = {
   },
 
   componentDidMount: function() {
+    this.__container = createContainer(this.props.container);
     this._updateLayer();
   },
 
   componentDidUpdate: function(prevProps) {
     if (this.props.container !== prevProps.container) {
       this._destroyLayer();
+      this.__container = createContainer(this.props.container);
     }
 
     this._updateLayer();
@@ -78,15 +88,12 @@ var LayerMixin = {
       );
     }
 
-    // Render the layer but first create a DOM element on
-    // the container for it to render into.
-    if (!this._layerTarget) {
-      this._layerTarget = document.createElement('div');
-      this._getContainerDOMNode()
-        .appendChild(this._layerTarget);
+    if (!this.__layer) {
+      this.__layer = new ReactLayer();
+      this.__container.addLayer(this.__layer);
     }
 
-    this._layerInstance = React.renderComponent(layer, this._layerTarget);
+    this.__layer.render(layer);
   },
 
   /**
@@ -97,32 +104,12 @@ var LayerMixin = {
    * @private
    */
   _destroyLayer: function() {
-    if (!this._layerTarget) {
-      // Nothing to do here.
+    if (!this.__layer) {
       return;
     }
 
-    if (this._layerInstance) {
-      React.unmountComponentAtNode(this._layerTarget);
-      this._layerInstance = null;
-    }
-
-    this._layerTarget.parentNode
-      .removeChild(this._layerTarget);
-    this._layerTarget = null;
-  },
-
-  /**
-   * Get the containers DOM node
-   *
-   * Use a loose type check as the propType checks should more robustly cover this.
-   *
-   * @returns {DOMElement}
-   * @private
-   */
-  _getContainerDOMNode: function() {
-    return this.props.container.getDOMNode ?
-      this.props.container.getDOMNode() : this.props.container;
+    this.__container.removeLayer(this.__layer);
+    this.__layer = null;
   }
 };
 

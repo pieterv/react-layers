@@ -9,17 +9,10 @@ var Layer = React.createClass({
   mixins: [LayerMixin],
 
   propTypes: {
-    layer: React.PropTypes.oneOfType([
-      React.PropTypes.oneOf([null]),
-      React.PropTypes.component
-    ]).isRequired
+    layer: React.PropTypes.component
   },
 
   render: function() {
-    if (this.props.children == null) {
-      return null;
-    }
-
     // Extract out props used by this component.
     // TODO: swap out to use ES6-7 spread operator when possible
     // @see https://gist.github.com/sebmarkbage/a6e220b7097eb3c79ab7
@@ -29,7 +22,8 @@ var Layer = React.createClass({
   },
 
   renderLayer: function() {
-    return this.props.layer;
+    return this.props.layer ?
+      this.props.layer : null;
   }
 });
 

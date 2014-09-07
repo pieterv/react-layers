@@ -1,9 +1,13 @@
 /** @jsx React.DOM */
 
 var React = require('react');
-var ReactLayer = require('../../').Layer;
+var ReactLayers = require('../../');
+var ReactLayer = ReactLayers.Layer;
+var ReactContainerMixin = ReactLayers.ContainerMixin;
 
 var NestedLayer = React.createClass({
+  mixins: [ReactContainerMixin],
+
   getInitialState: function() {
     return {
       hasLayer: false
@@ -28,7 +32,9 @@ var NestedLayer = React.createClass({
 
         <button onClick={this.handleShowLayer}>Create layer!</button>
 
-        <ReactLayer container={this} layer={this.state.hasLayer ? <NestedLayer /> : null} />
+        <ReactLayer container={this.container} layer={this.state.hasLayer ? <NestedLayer /> : null} />
+
+        {this.renderContainer()}
       </div>
       );
   },
