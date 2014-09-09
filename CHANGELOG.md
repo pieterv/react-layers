@@ -1,3 +1,7 @@
+## 0.3.1
+
+- Bugfix: Removed non referenced var from internal propType checks.
+
 ## 0.3.0
 
 - Added `ContainerMixin` and `Container` for mounting into react components.
