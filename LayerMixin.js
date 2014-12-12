@@ -80,7 +80,7 @@ var LayerMixin = {
       return;
     }
 
-    if (!React.isValidComponent(layer)) {
+    if (!React.isValidElement(layer)) {
       throw new Error(
         (this.constructor.displayName || 'ReactCompositeComponent') +
           '.renderLayer(): A valid ReactComponent must be returned. You may have ' +
