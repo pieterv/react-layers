@@ -24,7 +24,7 @@ function ReactLayer(container) {
 ReactLayer.prototype.render = function(nextDescriptor) {
   this.__nextDescriptor = nextDescriptor;
   if (this.__container) {
-    React.renderComponent(nextDescriptor, this.__container);
+    React.render(nextDescriptor, this.__container);
   }
 };
 

@@ -19,7 +19,7 @@ var Portal = React.createClass({
     // @see https://gist.github.com/sebmarkbage/a6e220b7097eb3c79ab7
     // var {container, ...props} = this.props;
     // return <div {...props}>{this.props.children}</div>;
-    return cloneWithProps(<div container={null}>{this.props.children}</div>, this.props);
+    return cloneWithProps(React.DOM.div({container: null}, this.props.children), this.props);
   }
 });
 
