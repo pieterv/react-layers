@@ -26,7 +26,7 @@ var ContainerMixin = {
   },
 
   renderContainer: function() {
-    return <div ref="container" />;
+    return React.DOM.div({ref:"container"});
   }
 };
 
